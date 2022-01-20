@@ -11,21 +11,21 @@
   <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
 </head>
 
-<body  class="container-fluid">
-  {% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-info">
-    <strong>{{message}}</strong>
+<body  class="container-fluid background-img">
+<center class="row">
+    <h1>Todo List</h1>
+</center>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info">
+  <strong>{{message}}</strong>
 </div>
 {% endfor %}
 {% endif %}
 
-<center class="row">
-  <h1><i>TODO</i></h1>
-  <hr />
-</center>
+{% block content %}
+{% endblock %}
 
-    {% block content %}
-    {% endblock %}
 </body>
 </html>
