@@ -26,7 +26,7 @@ h1 {
     background: #00bd9dbd;
     margin-bottom : 5%;
     border-radius: 10px;
-    padding : 2%;
+    padding : 1%;
     overflow: auto;
     resize: both;
     text-overflow: ellipsis;
@@ -35,19 +35,18 @@ h1 {
      background: #00bd9de8;
    }
  
-   .submit_form{
- 
+   .modal-content{
      text-align: center;
-     padding: 3%;
-     background: #c2bfc48e;
+     padding: 1%;
+     background: #968e85e3;
      border-radius: 10px;
      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
                  0 6px 20px 0 rgba(0,0,0,0.36);
    }
 
-textarea, .textinput {
+textarea, .textinput, .datetimeinput, .select {
     margin: 0;
     font: inherit;
-    
-    border-radius: 10px;
+    border-radius: 5px;
+    width: 270px;
 }
