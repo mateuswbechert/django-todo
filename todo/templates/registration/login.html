@@ -1,6 +1,11 @@
 {% extends "../todo/base.html" %}
 
 {% block content %}
+<center><br><br>
+    <div class="col-md-3" style="float:none;margin:auto;">
+    <div class="card control-label">
+
+
 
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
@@ -15,6 +20,7 @@
     {% endif %}
   {% endif %}
 
+
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <table>
@@ -27,11 +33,13 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login" />
+    <input class="btn btn-primary" type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 
   {# Assumes you setup the password_reset view in your URLconf #}
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  </div>
+</center>
 
 {% endblock %}
