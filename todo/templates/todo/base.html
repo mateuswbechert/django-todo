@@ -11,53 +11,47 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
-  <script src="{% static 'todo/pomodoro.js' %}"></script>
 </head>
 
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- NEW CARD -->
+      <div class="col-sm">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
+          +
+        </button>
+        <a href="{% url 'todo' %}">
+          <h1>Todo List</h1>
+        </a>
 
-<body class="container-fluid">
+        <!-- PROFILE OPTIONS-->
+        {% if user.is_authenticated %}
 
-  <!-- NEW CARD -->
-  <br><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
-    +
-  </button>
+          Welcome, {{ user.get_username }}
+          <a href="{% url 'logout'%}?next={{request.path}}">
+            <button type="button" class="btn btn-primary btn-lg">Logout</button>
+          </a>
 
-  <!-- PROFILE OPTIONS-->
-  {% if user.is_authenticated %}
-  <div class="text-right">
-    Welcome, {{ user.get_username }}
-    <a href="{% url 'logout'%}?next={{request.path}}">
-      <button type="button" class="btn btn-primary btn-lg">Logout</button>
-    </a>
+        {% else %}
+          <a href="{% url 'login'%}?next={{request.path}}">
+            <button type="button" class="btn btn-primary btn-lg">Login</button>
+          </a>
+        {% endif %}
+      </div>
+    </div>
   </div>
-  {% else %}
-  <div class="text-right">
-    <a href="{% url 'login'%}?next={{request.path}}">
-      <button type="button" class="btn btn-primary btn-lg">Login</button>
-    </a>
+
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-info">
+    <strong>{{message}}</strong>
   </div>
+  {% endfor %}
   {% endif %}
 
-  <!-- LOGO -->
-  <center class="row">
-    <a href="{% url 'todo' %}">
-      <h1>Todo List</h1>
-    </a>
-  </center>
-
-  <ul class="sidebar-nav">
-
-
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info">
-      <strong>{{message}}</strong>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {% block content %}
-    {% endblock %}
+  {% block content %}
+  {% endblock %}
 
 </body>
 
