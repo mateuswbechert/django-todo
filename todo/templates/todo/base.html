@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+  <script src="{% static 'todo/pomodoro.js' %}"></script>
 </head>
 
 
@@ -21,9 +22,20 @@
   +
 </button>
 
+
 <center class="row">
   <h1>Todo List</h1>
 </center>
+
+<ul class="sidebar-nav">
+
+ {% if user.is_authenticated %}
+   <li>User: {{ user.get_username }}</li>
+   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+ {% else %}
+   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+ {% endif %}
+</ul>
 
   {% if messages %}
   {% for message in messages %}
