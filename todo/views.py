@@ -6,7 +6,7 @@ from .models import Todo
 
 
 def index(request):
-    item_list = Todo.objects.order_by("-date")
+    item_list = Todo.objects.order_by("-order_id")
     if request.method == "POST":
         form = TodoForm(request.POST)
         if form.is_valid():
