@@ -6,6 +6,7 @@ class Todo(models.Model):
     details=models.TextField()
     date=models.DateTimeField(default=timezone.now)
     status=models.ForeignKey('Status', on_delete=models.PROTECT, blank=True, default='2')
+    order_id=models.IntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.title
