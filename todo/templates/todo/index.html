@@ -2,24 +2,31 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="row">
+<div class="container-fluid">
+  <div class="row">
 
-  <!--Cards list-->
-  {% for i in list %}
-  <div class="col-md-3">
-    <div class="card control-label">
-      <center><b class="control-label">{{i.title}}</b></center>
-      <hr />
-      {{i.details}}
-      <br />
-      <br />
-      <form action="/del/{{i.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+    <!--Cards list-->
+    {% for card_item in card_list %}
+    <div class="col-md-3">
+      <a class="open-card" href="/view/{{card_item.id}}" data-popup-url="/view/{{card_item.id}}" data-bs-toggle="modal"
+        data-bs-target="#viewCardModal">
+        <div class="card control-label">
+          <center><b class="control-label">{{card_item.title}}</b></center>
+          <hr />
+          {{card_item.details}}
+          <br />
+          <br />
+      </a>
+      <form action="/del/{{card_item.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
         {% csrf_token %}
         <button value="remove" type="submit" class="btn btn-primary" style="float: right;">Remove</button>
       </form>
     </div>
+
   </div>
   {% endfor%}
+
+  {% include 'todo/card_view_modal.html' %}
 
 </div>
 {% endblock %}

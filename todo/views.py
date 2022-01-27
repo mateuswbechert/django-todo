@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 
 from .forms import TodoForm
@@ -15,12 +15,23 @@ def index(request):
     form = TodoForm()
 
     page = {
-            "forms" : form,
-            "list" : item_list,
-            "title" : "TODO LIST",
-            }
-    
+        "forms": form,
+        "card_list": item_list,
+        "title": "TODO LIST",
+    }
+
     return render(request, 'todo/index.html', page)
+
+
+def card_view(request, item_id):
+    card = Todo.objects.get(id=item_id)
+    form = TodoForm()
+    page = {
+        "forms": form,
+        "card": card,
+        "title": "TODO LIST",
+    }
+    return render(request, "todo/card_view.html", page)
 
 
 def remove(request, item_id):
