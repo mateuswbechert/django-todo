@@ -25,6 +25,11 @@ def index(request):
 
 def card_view(request, item_id):
     card = Todo.objects.get(id=item_id)
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            form.instance.title = card.title
+            form.save()
     form = TodoForm()
     page = {
         "forms": form,
