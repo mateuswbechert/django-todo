@@ -19,7 +19,8 @@
       </a>
       <form action="/del/{{card_item.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
         {% csrf_token %}
-        <button value="remove" type="submit" class="btn btn-primary" style="float: right;">Remove</button>
+        
+        <button value="remove" type="submit" class="btn btn-primary" style="float: right;"><i class="bi bi-trash"></i></button>
       </form>
     </div>
 
