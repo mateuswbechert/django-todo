@@ -21,6 +21,7 @@ urlpatterns = [
     path('', views.index, name="todo"),
     path('del/<int:item_id>', views.remove, name="del"),
     path('view/<int:item_id>', views.card_view, name="view"),
+    path('save/<int:item_id>', views.save, name="save"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

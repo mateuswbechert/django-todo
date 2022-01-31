@@ -26,17 +26,25 @@ def index(request):
 def card_view(request, item_id):
     card = Todo.objects.get(id=item_id)
     if request.method == "POST":
-        form = TodoForm(request.POST)
+        form = TodoForm(request.POST, instance=card)
         if form.is_valid():
-            form.instance.title = card.title
             form.save()
-    form = TodoForm()
+    form = TodoForm(instance=card)
     page = {
         "forms": form,
         "card": card,
         "title": "TODO LIST",
     }
     return render(request, "todo/card_view.html", page)
+    
+
+def save(request, item_id):
+    card = Todo.objects.get(id=item_id)
+    if request.method == "POST":
+        form = TodoForm(request.POST, instance=card)
+        if form.is_valid():
+            form.save()
+    return redirect('todo')
 
 
 def remove(request, item_id):

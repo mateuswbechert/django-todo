@@ -1,7 +1,5 @@
-console.log("JS running")
-// AJAX CALL
+// Ajax cardView
 function cardView(str) {
-    console.log("Function cardView")
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
       document.getElementById("loadView").innerHTML = 

@@ -1,12 +1,11 @@
 {% load crispy_forms_tags %}
 
-<form method="POST">
+<!-- Form -->
+<form action="/save/{{card.id}}" method="POST">
   {% csrf_token %}
   {{forms|crispy}}
   </div>
   <div class="modal-footer">
-    Card ID {{card.id}} <br>
-    Card Title {{card.title}}
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     <input type="submit" class="btn btn-primary" value="Submit" />
 </form>
