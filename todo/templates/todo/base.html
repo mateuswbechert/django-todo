@@ -32,7 +32,8 @@
 
         <!-- HEADER | ADD CARD -->
         <div class="col">
-          <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newCardModal">
+          <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewCardModal"
+            onclick="cardView(0)">
             +
           </button>
         </div>
@@ -73,29 +74,7 @@
   {% endfor %}
   {% endif %}
 
-  <!-- Modal -->
-  <div class="modal fade" id="newCardModal" tabindex="-1" aria-labelledby="newCardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="newCardModalLabel">New Card</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Form -->
-          <form method="POST">
-            {% csrf_token %}
-            {{forms|crispy}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-primary" value="Submit" />
-          </form>
-          <!-- Form End-->
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include 'todo/card_view_modal.html' %}
 
   <!-- LOAD BLOCK -->
   {% block content %}

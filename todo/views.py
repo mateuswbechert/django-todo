@@ -7,36 +7,32 @@ from .models import Todo
 
 def index(request):
     item_list = Todo.objects.order_by("-order_id")
-    if request.method == "POST":
-        form = TodoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('todo')
     form = TodoForm()
-
     page = {
         "forms": form,
         "card_list": item_list,
         "title": "TODO LIST",
     }
-
     return render(request, 'todo/index.html', page)
 
 
 def card_view(request, item_id):
-    card = Todo.objects.get(id=item_id)
-    if request.method == "POST":
-        form = TodoForm(request.POST, instance=card)
-        if form.is_valid():
-            form.save()
-    form = TodoForm(instance=card)
-    page = {
+    if item_id == 0:
+        form = TodoForm()
+        page = {
         "forms": form,
-        "card": card,
         "title": "TODO LIST",
-    }
+        }
+    else:
+        card = Todo.objects.get(id=item_id)
+        form = TodoForm(instance=card)
+        page = {
+            "forms": form,
+            "card": card,
+            "title": "TODO LIST",
+        }
     return render(request, "todo/card_view.html", page)
-    
+
 
 def save(request, item_id):
     card = Todo.objects.get(id=item_id)
@@ -44,7 +40,20 @@ def save(request, item_id):
         form = TodoForm(request.POST, instance=card)
         if form.is_valid():
             form.save()
+    messages.info(request, "Item saved!")
     return redirect('todo')
+
+
+def new(request):
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Item saved!")
+        else:
+            messages.error(request, "Error!")
+    return redirect('todo')
+
 
 
 def remove(request, item_id):
