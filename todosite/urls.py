@@ -24,5 +24,7 @@ urlpatterns = [
     path('save/<int:item_id>', views.save, name="save"),
     path('save/', views.new, name="new"),
     path('admin/', admin.site.urls),
+    path("register", views.register_request, name="register"),
     path('accounts/', include('django.contrib.auth.urls')),
+
 ]
