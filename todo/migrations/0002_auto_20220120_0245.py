@@ -23,7 +23,7 @@ def remove_default_status(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('todo', '0002_status'),
+        ('todo', '0001_initial'),
     ]
 
     operations = [

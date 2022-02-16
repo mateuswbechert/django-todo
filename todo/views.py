@@ -6,7 +6,8 @@ from .models import Todo
 
 
 def index(request):
-    item_list = Todo.objects.order_by("-order_id")
+    user = request.user.id
+    item_list = Todo.objects.filter(user_id=user).order_by("-order_id")
     form = TodoForm()
     page = {
         "forms": form,
@@ -20,8 +21,8 @@ def card_view(request, item_id):
     if item_id == 0:
         form = TodoForm()
         page = {
-        "forms": form,
-        "title": "TODO LIST",
+            "forms": form,
+            "title": "TODO LIST",
         }
     else:
         card = Todo.objects.get(id=item_id)
@@ -46,13 +47,16 @@ def save(request, item_id):
 
 def new(request):
     if request.method == "POST":
-        form = TodoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.info(request, "Item saved!")
-        else:
-            messages.error(request, "Error!")
-    return redirect('todo')
+        if request.user.is_authenticated:
+            form = TodoForm(request.POST)
+            if form.is_valid():
+                form_tmp=form.save(commit=False)
+                form_tmp.user_id=request.user.id
+                form_tmp.save()
+                messages.info(request, "Item saved!")
+            else:
+                messages.error(request, "Error!")
+        return redirect('todo')
 
 
 def remove(request, item_id):
@@ -63,13 +67,14 @@ def remove(request, item_id):
 
 
 def register_request(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request, user)
-			messages.success(request, "Registration successful." )
-			return redirect('todo')
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = NewUserForm()
-	return render (request=request, template_name="todo/register.html", context={"register_form":form})
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect('todo')
+        messages.error(
+            request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    return render(request=request, template_name="todo/register.html", context={"register_form": form})

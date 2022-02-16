@@ -8,6 +8,7 @@ class Todo(models.Model):
     date=models.DateTimeField(default=timezone.now)
     status=models.ForeignKey('Status', on_delete=models.PROTECT, blank=True, default='2')
     order_id=models.IntegerField(blank=True, default=0)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -27,13 +28,13 @@ class Board(models.Model):
         return self.title
 
 
-class BoardUser(models.Model):
-    board_id=models.ForeignKey('Board', on_delete=models.PROTECT)
-    user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    user_board_id=models.IntegerField(default=0)
+# class BoardUser(models.Model):
+#     board_id=models.ForeignKey('Board', on_delete=models.PROTECT)
+#     user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     user_board_id=models.IntegerField(default=0)
 
 
-class CardUser(models.Model):
-    card_id=models.ForeignKey('Todo', on_delete=models.PROTECT)
-    user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    user_card_id=models.IntegerField(default=0)
+# class CardUser(models.Model):
+#     card_id=models.ForeignKey('Todo', on_delete=models.PROTECT)
+#     user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     user_card_id=models.IntegerField(default=0)
