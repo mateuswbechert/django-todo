@@ -16,7 +16,7 @@
       <p>Your account doesn't have access to this page. To proceed,
       please login with an account that has access.</p>
     {% else %}
-      <p>Please login to see this page.</p>
+      <p>Login</p>
     {% endif %}
   {% endif %}
 
@@ -40,6 +40,9 @@
   {# Assumes you setup the password_reset view in your URLconf #}
   <small><a class="control-label" href="{% url 'password_reset' %}">Lost password?</a></small>
   </div>
+
+  <small><div class="control-label">Do not have an account?</div></small>
+  <small><a class="control-label" href="{% url 'register' %}">Create account</a></small>
 </center>
 
 {% endblock %}
